@@ -18,7 +18,7 @@ void bisection(double a,double b)
     if(func(a) * func(b) >= 0)
     {
         cout<<"Incorrect a and b";
-        return;
+        exit(0);
     }
  
     c=a;
