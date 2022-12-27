@@ -1,71 +1,50 @@
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
-vector<float> split(string str) {
-    string str1;
-    vector<float> vect;
-    string search;
-    for (int i=0; i < str.length(); i++ ) {
-        search = str[i];
-        if (search != "\t") {
-            str1 = str1 + str[i];
-        }
-        else {
-            vect.push_back(stof(str1));
-            str1 = "";
-        }
-    }
-    vect.push_back(stof(str1));
-    return  vect;
-}
-
 int main()
 {
-    string abc;
-    vector<float> vect1,vect2;
-    int val;
-    cout << "Use space to seperate\n";
-    cout << "X:\t";
-    getline(cin,abc);
-    vect1 = split(abc);
-    cout << "F(x):\t";
-    getline(cin,abc);
-    vect2 = split(abc);
-    cout << "value of X:";
-    cin >> val;
-    float arr[vect2.size()];
-    for (int i = 0; i<vect2.size(); i++) {
-        arr[i] = vect2[i];
-    }
-    float new_arr[vect2.size()];
-    vector<float> dd;
-    int real_index = 0;
-    int table_length = vect1.size();
-    while (table_length != 0) {
-        for (int i=0; i < table_length-1; i++) {
-            new_arr[i] = (arr[i+1] - arr[i])/(vect1[i+1+real_index] - vect1[i]);
-        }
-        for (int i=0; i < table_length-1; i++) {
-            arr[i] = new_arr[i];
-            if (i == 0) {
-                dd.push_back(arr[i]);
-            }
-        }
-        table_length = table_length - 1;
-        real_index = real_index + 1;
-    }
-    float sum = vect2[0], prod = 1;
+    float x[50], y[50], p[50], k, f, f1=1, f2=0;
+    int n, j=1;
     
-    for (int i=0; i < vect1.size(); i++) {
-        for (int j=0; j < i+1; j++) {
-            prod = prod*(val - vect1[j]);
-            
-        }
-        sum = sum + dd[i]*prod;
-        prod = 1;
+    cout<<"Enter No. of nodes : ";
+    cin>>n;
+    
+    cout<<"X : ";
+    for(int i=0; i<n; i++){
+        cin>>x[i];
     }
-    cout << "Ans:" << sum;
+    
+    cout<<"Y : ";
+    for(int i=0; i<n; i++){
+        cin>>y[i];
+    }
+    
+    f=y[0];
+    
+    cout<<"Enter value at which you want to calculate value of f(x) : ";
+    cin>>k;
+    
+    do
+    {
+        for (int i=0;i<n-1;i++)
+        {
+            p[i] = ((y[i+1]-y[i])/(x[i+j]-x[i]));
+            y[i]=p[i];
+        }
+        f1=1;
+        for(int i=0;i<j;i++)
+            {
+                f1*=(k-x[i]);
+            }
+        f2+=(y[0]*f1);
+        n--;
+        j++;
+    }
+    while(n!=1);
+    f+=f2;
+    
+    cout<<"Ans : "<<f;
+    
     return 0;
 }
